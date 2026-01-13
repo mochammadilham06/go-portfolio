@@ -2,13 +2,11 @@ name: Go Portfolio BE
 
 on:
   push:
-    branches: ["main"]
-    paths:
-      - "**/*.go"
-      - "go.mod"
-      - "go.sum"
-  pull_request:
-    branches: ["main"]
+    branches: ["main"] # Pastikan ini sesuai nama branch kamu (main/master)
+    # Hapus dulu bagian 'paths' agar setiap push men-trigger CI (untuk testing awal)
+
+  # Tambahan sakti: Mengizinkan trigger manual lewat tombol
+  workflow_dispatch:
 
 jobs:
   # Job 1: Quality Check (Lint & Test)
