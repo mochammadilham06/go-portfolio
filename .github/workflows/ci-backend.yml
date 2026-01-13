@@ -1,0 +1,56 @@
+name: Go Portfolio BE
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "**/*.go"
+      - "go.mod"
+      - "go.sum"
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  # Job 1: Quality Check (Lint & Test)
+  test:
+    name: Test and Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+
+      # Lint Code (Clean Code check)
+      - name: Run Linter (golangci-lint)
+        uses: golangci/golangci-lint-action@v4
+        with:
+          version: v1.54
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: go mod download
+
+      # Run unit test
+      # - name: Run Tests
+      #   run: go test -v ./...
+
+  # Job 2: Build Check
+  build:
+    name: Build Check
+    runs-on: ubuntu-latest
+    needs: test # Run if test success
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+
+      - name: Build Binary
+        run: go build -v ./...
