@@ -35,7 +35,8 @@ func InitializeAPI(cfg *environment.Config, log *logger.Logger) (*handler.Handle
 
 // wire.go:
 
-// 1. Grouping services
+// Grouping services
 var ProjectSet = wire.NewSet(repository.NewProjectRepository, wire.Bind(new(contract.IProjectRepository), new(*repository.ProjectRepository)), service.NewProjectService, wire.Bind(new(contract.IProjectService), new(*service.ProjectService)))
 
+// 2.experience services
 var ExperienceSet = wire.NewSet(repository.NewExperienceRepository, wire.Bind(new(contract.IExperienceRepository), new(*repository.ExperienceRepository)), service.NewExperienceService, wire.Bind(new(contract.IExperienceService), new(*service.ExperienceService)))
