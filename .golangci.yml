@@ -1,11 +1,12 @@
 run:
   timeout: 5m
-  skip-dirs:
-    - docs
-  skip-files:
-    - ".*_gen\\.go$"
 
 issues:
+  exclude-dirs:
+    - docs
+  exclude-files:
+    - ".*_gen\\.go$"
+
   exclude-rules:
     - path: _gen\.go
       linters:
