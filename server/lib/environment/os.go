@@ -31,6 +31,7 @@ type Config struct {
 
 	RATE_LIMITER_RPS   float64 `mapstructure:"RATE_LIMITER_RPS" default:"20"`
 	RATE_LIMITER_BURST int     `mapstructure:"RATE_LIMITER_BURST" default:"5"`
+	ALLOWED_ORIGINS    string  `mapstructure:"ALLOWED_ORIGINS"`
 
 	// Add more configuration fields as needed
 }

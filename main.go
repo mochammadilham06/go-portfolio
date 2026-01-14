@@ -51,7 +51,7 @@ func main() {
 
 	//register gin and swagger
 	h.Register(r)
-	registerSwagger(r, cfg)
+	registerSwagger(r, cfg, appLogger)
 
 	//run app
 	appPort := fmt.Sprintf(":%d", cfg.APP_HTTP_PORT)
@@ -63,7 +63,13 @@ func main() {
 
 }
 
-func registerSwagger(r *gin.Engine, cfg *environment.Config) {
+func registerSwagger(r *gin.Engine, cfg *environment.Config, logger *logger.Logger) {
+
+	if cfg.APP_ENV == "production" {
+		logger.Info("Disable swagger for production")
+		return
+	}
+
 	docs.SwaggerInfo.Host = fmt.Sprintf("localhost:%d", cfg.APP_HTTP_PORT)
 	docs.SwaggerInfo.BasePath = "/api/v1"
 
