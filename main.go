@@ -25,7 +25,9 @@ func main() {
 	}
 
 	appLogger := logger.ProvideLogger(cfg.APP_ENV, cfg.APP_NAME)
-	defer appLogger.Sync()
+	defer func() {
+		_ = appLogger.Sync()
+	}()
 
 	h, err := api.InitializeAPI(cfg, appLogger)
 	if err != nil {

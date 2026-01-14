@@ -1,6 +1,7 @@
 package environment
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"reflect"
@@ -68,7 +69,9 @@ func ProvideConfig() (*Config, error) {
 	for i := 0; i < t.NumField(); i++ {
 		field := t.Field(i)
 		key := strings.ToUpper(field.Name)
-		viper.BindEnv(key)
+		if err := viper.BindEnv(key); err != nil {
+			return nil, fmt.Errorf("Failed to bind env %s : %w", key, err)
+		}
 	}
 
 	// Fill struct

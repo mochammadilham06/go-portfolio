@@ -17,3 +17,16 @@ swag :
 wire :
 	@echo "Wire generate"
 	@wire ./server/api
+
+	.PHONY: lint audit
+
+tidy:
+	go mod tidy
+	go mod verify
+
+lint:
+	@echo "Running Linter..."
+	golangci-lint run --timeout=5m
+
+audit: tidy lint
+	@echo "All checks passed! Ready to push."
